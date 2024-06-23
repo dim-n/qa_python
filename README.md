@@ -51,7 +51,3 @@
 
     # получаем список Избранных книг
     def test_get_list_of_favorites_books(self, book):
-
-    # получаем список Избранных книг
-    def test_get_list_of_favorites_books_add_one_to_fav(self, book):
-        
