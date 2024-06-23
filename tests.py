@@ -161,6 +161,3 @@ class TestBooksCollector:
         book.add_new_book(one_book_and_genre[0])
         book.add_book_in_favorites(one_book_and_genre[0])
         assert book.favorites == [one_book_and_genre[0]]
-
-tests = TestBooksCollector()
-print(tests.__doc__)
