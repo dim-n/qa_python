@@ -1,6 +1,18 @@
-import data
 class BooksCollector:
-
+    """Приложение для создания книжного словаря
+        Attributes
+        ----------
+        book_genre: dict
+            {name: genre}
+        favorites: list
+            [name]
+        genre: list
+            save all genre
+        genre_age_rating: list
+            save genre_by_adult
+        Methodts
+        --------
+        add_new_book  saver name to dict book_genre"""
     def __init__(self):
         self.books_genre = {}
         self.favorites = []
@@ -9,6 +21,7 @@ class BooksCollector:
 
     # добавляем новую книгу
     def add_new_book(self, name):
+        """Метод добавит книги"""
         if not self.books_genre.get(name) and 0 < len(name) < 41:
             self.books_genre[name] = ''
 

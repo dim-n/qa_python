@@ -3,6 +3,7 @@ import helpers
 
 
 class TestBooksCollector:
+    """Тест класс для проверки функций приложения"""
 
     # добавляем новую книгу
     def test_add_new_book(self, book):
@@ -19,7 +20,8 @@ class TestBooksCollector:
         """Вызывается book фикстура, чтобы создать экземпляр класса,
         в метод передается из data название длинна которой больше 40
         ожидается, что функция не создаст словарь"""
-        assert book.add_new_book(helpers.long_name) is None
+        book.add_new_book(helpers.long_name)
+        assert book.books_genre == {}
 
     # устанавливаем книге жанр
     def test_set_book_genre(self, book):
@@ -42,7 +44,8 @@ class TestBooksCollector:
         метод должен проверить, есть ли такой жанр в списке, если нет жанр не добавиться к названию"""
         one_book_and_genre = helpers.make_a_list_one_name_and_genre()
         book.add_new_book(one_book_and_genre[0])
-        assert book.set_book_genre(one_book_and_genre[0], 'Фентези') is None
+        book.set_book_genre(one_book_and_genre[0], 'Фентези')
+        assert book.books_genre == {one_book_and_genre[0]: ''}
 
     # получаем жанр книги по её имени
     def test_get_book_genre(self, book, all_book_and_genres):
@@ -125,8 +128,8 @@ class TestBooksCollector:
         """Вызывается book фикстура, чтобы создать экземпляр класса,
         one_book_and_genre содержит список в виде [название: жанр], название находиться по индексу 0 а жанр 1
         методу передаем название, он проверяет, что названия нет в словаре и не добавит в избранные"""
-        one_book_and_genre = helpers.make_a_list_one_name_and_genre()
-        assert book.add_book_in_favorites(one_book_and_genre[0]) is None
+        book.add_book_in_favorites('Парк Юрского периода')
+        assert book.favorites == []
 
     # удаляем книгу из Избранного
     def test_delete_book_from_favorites(self, book):
@@ -147,8 +150,12 @@ class TestBooksCollector:
         """Вызывается book фикстура, чтобы создать экземпляр класса,
         all_book_and_genres фикстура чтобы создать в обьекте словарь со всеми названиями и жанрами
         favorite_books добавляем названия в избранные
-        передаем методу несущестующее название, метод ничего не удалит"""
-        assert book.delete_book_from_favorites('Король колец') is None
+        fav_books все книги в избранных
+        передаем методу несущестующее название, метод ничего не удалит
+        список останется прежним"""
+        fav_books = helpers.all_book_and_genres()
+        book.delete_book_from_favorites('Король колец')
+        assert book.favorites == list(fav_books.keys())
 
     # получаем список Избранных книг
     def test_get_list_of_favorites_books(self, book):
@@ -156,8 +163,9 @@ class TestBooksCollector:
         one_book_and_genre содержит список в виде [название: жанр], название находиться по индексу 0 а жанр 1
         add_new_book добавили в словарь одно название
         add_book_in_favorites добавили в избранное одно название
-        добавили одну книгу в избранные и сравниваем с одной книгой"""
+        добавили одну книгу в избранные
+        метод вернет список избранного и сравниваем списоком их одной книги"""
         one_book_and_genre = helpers.make_a_list_one_name_and_genre()
         book.add_new_book(one_book_and_genre[0])
         book.add_book_in_favorites(one_book_and_genre[0])
-        assert book.favorites == [one_book_and_genre[0]]
+        assert book.get_list_of_favorites_books() == [one_book_and_genre[0]]

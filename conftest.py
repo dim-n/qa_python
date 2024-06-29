@@ -41,4 +41,4 @@ def favorite_books(book):
     favorite_books = helpers.all_book_and_genres()
     for key in favorite_books.keys():
         book.add_book_in_favorites(key)
-        return book
+    return book
